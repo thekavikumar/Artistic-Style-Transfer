@@ -1,5 +1,4 @@
 fastapi==0.111.0
-io==0.0.1
 Pillow==10.3.0
 requests==2.32.3
 numpy==2.0.0
