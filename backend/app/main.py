@@ -2,6 +2,7 @@ from fastapi import FastAPI, Query
 from fastapi.responses import StreamingResponse
 from io import BytesIO
 from PIL import Image
+from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 import torch
 import torch.optim as optim
@@ -9,6 +10,20 @@ import requests
 from torchvision import transforms, models
 
 app = FastAPI()
+
+# Allow requests from the frontend
+origins = [
+    "http://localhost:3000",
+    "https://arti-style.vercel.app"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Load the pre-trained VGG19 model
 vgg = models.vgg19(pretrained=True).features
@@ -22,7 +37,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 vgg.to(device)
 
 # Define image transformation function
-def load_image_from_url(image_url, max_size=512, shape=None):
+def load_image_from_url(image_url, max_size=128, shape=None):
     response = requests.get(image_url)
     image = Image.open(BytesIO(response.content)).convert('RGB')
     
