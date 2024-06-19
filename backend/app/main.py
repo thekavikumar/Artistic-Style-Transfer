@@ -137,7 +137,3 @@ async def style_transfer(content_url, style_url):
     buf.seek(0)
     
     return StreamingResponse(buf, media_type="image/jpeg")
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
