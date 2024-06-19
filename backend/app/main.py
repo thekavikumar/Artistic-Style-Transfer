@@ -79,7 +79,7 @@ def gram_matrix(tensor):
     return gram
 
 @app.get("/style-transfer/")
-async def style_transfer(content_url: str, style_url: str):
+async def style_transfer(content_url, style_url):
     # Load content and style images
     content = load_image_from_url(content_url).to(device)
     style = load_image_from_url(style_url, shape=content.shape[-2:]).to(device)
@@ -100,11 +100,11 @@ async def style_transfer(content_url: str, style_url: str):
                      'conv5_1': 0.2}
     
     content_weight = 1  # alpha
-    style_weight = 1e4  # beta
+    style_weight = 1e3  # beta
     
     # Set optimizer and hyperparameters
     optimizer = optim.Adam([target], lr=0.003)
-    steps = 2000  # Adjust number of iterations for better results
+    steps = 500  # Adjust number of iterations for faster processing
     
     for ii in range(1, steps + 1):
         target_features = get_features(target, vgg)
