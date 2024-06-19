@@ -22,7 +22,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 vgg.to(device)
 
 # Define image transformation function
-def load_image_from_url(image_url, max_size=128, shape=None):
+def load_image_from_url(image_url, max_size=512, shape=None):
     response = requests.get(image_url)
     image = Image.open(BytesIO(response.content)).convert('RGB')
     
@@ -79,7 +79,7 @@ def gram_matrix(tensor):
     return gram
 
 @app.get("/style-transfer/")
-async def style_transfer(content_url, style_url):
+async def style_transfer(content_url: str, style_url: str):
     # Load content and style images
     content = load_image_from_url(content_url).to(device)
     style = load_image_from_url(style_url, shape=content.shape[-2:]).to(device)
@@ -100,11 +100,11 @@ async def style_transfer(content_url, style_url):
                      'conv5_1': 0.2}
     
     content_weight = 1  # alpha
-    style_weight = 1e3  # beta
+    style_weight = 1e4  # beta
     
     # Set optimizer and hyperparameters
     optimizer = optim.Adam([target], lr=0.003)
-    steps = 500  # Adjust number of iterations for faster processing
+    steps = 2000  # Adjust number of iterations for better results
     
     for ii in range(1, steps + 1):
         target_features = get_features(target, vgg)
