@@ -1,4 +1,4 @@
-# ArtiStyle - Neural Style Transfer Application
+# Artistic Style Transfer - Neural Style Transfer Application
 
 ## Overview
 
@@ -33,8 +33,8 @@ This project implements a neural style transfer application using a Python backe
 1. **Clone the repository**:
 
    ```sh
-   git clone https://github.com/thekavikumar/ArtiStyle.git
-   cd ArtiStyle/backend
+   git clone https://github.com/thekavikumar/Artistic-Style-Transfer.git
+   cd Artistic-Style-Transfer/backend
    ```
 
 2. **Create a virtual environment**:
@@ -88,7 +88,7 @@ We welcome contributions from the community! Here's how you can get involved:
 1. **Fork the repository**.
 2. **Clone your fork**:
    ```sh
-   git clone https://github.com/thekavikumar/ArtiStyle.git
+   git clone https://github.com/thekavikumar/Artistic-Style-Transfer.git
    ```
 3. **Create a new branch**:
    ```sh
